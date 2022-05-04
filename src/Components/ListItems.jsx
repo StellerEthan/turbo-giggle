@@ -42,8 +42,6 @@ const ListItems = () => {
     )
   }
 
-  console.log(" Before return ",items)
-
   return (
     <>
     {items && displayItems(items)}

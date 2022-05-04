@@ -1,13 +1,20 @@
-import React, {Routes, Route} from "react";
+import React from "react";
+import { Routes, Route } from "react-router-dom";
 
 import Home from "./View/Home.JSX";
 import ListItems from "./Components/ListItems";
+import AddItem from "./Components/AddItem.jsx";
+import Header from "./Components/Header";
 
 const App = () => {
   return(
-    <div>
-      <ListItems/>
-    </div>
+    <>
+      <Header />
+      <Routes>
+        <Route path="/" element={<ListItems />}/>
+        <Route path='/addItem' element={<AddItem />}/>
+      </Routes>
+    </>
   );
 };
 
