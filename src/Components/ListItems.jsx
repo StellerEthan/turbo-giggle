@@ -29,7 +29,7 @@ const ListItems = () => {
           items.map(
             item => 
              <tr key={item.id}>
-               <td>{item.name}</td>
+               <td>{item.itemName}</td>
                <td>{item.itemDesc}</td>
                <td>{item.itemLoc}</td>
                <td>{item.itemExp}</td>

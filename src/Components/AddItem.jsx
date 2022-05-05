@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Navigate, useNavigate } from "react-router-dom";
 
 const AddItem = () => {
   const [ itemName, setItemName ] = useState('');
@@ -7,21 +8,26 @@ const AddItem = () => {
   const [ itemExp, setItemExp ] = useState('');
   const [ postId , setPostId ] = useState();
 
+  const navigate = useNavigate();
+
+
   const saveItem = (e) => {
     e.preventDefault();
     const item = {itemName:itemName, itemDesc:itemDesc, itemLoc:itemLoc, itemExp:itemExp};
-    useEffect(() => {
-      const requestOptions = {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(item)
-      };
-      fetch(`http://localhost:8080/api/items`, requestOptions)
-          .then(response => response.json())
-          .then(data => setPostId(data.id));
-      }, []);
+    fetch(`http://localhost:8080/api/items`, {
+      method: 'POST',
+      headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({item})
+    }).then((response) => {
+      console.log('Json',JSON.stringify(item));
+      console.log('Response',response);
+      console.log('item',item);
+      // navigate('/');
+    }).catch(error => console.log(error))
   }
-
 
 
   return(
