@@ -1,12 +1,11 @@
-import React, { useState, useEffect } from "react";
-import { Navigate, useNavigate } from "react-router-dom";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const AddItem = () => {
   const [ itemName, setItemName ] = useState('');
   const [ itemDesc, setItemDesc ] = useState('');
   const [ itemLoc, setItemLoc ] = useState('');
   const [ itemExp, setItemExp ] = useState('');
-  const [ postId , setPostId ] = useState();
 
   const navigate = useNavigate();
 
@@ -17,18 +16,15 @@ const AddItem = () => {
     fetch(`http://localhost:8080/api/items`, {
       method: 'POST',
       headers: {
-      Accept: 'application/json',
       'Content-Type': 'application/json'
       },
-      body: JSON.stringify({item})
+      body: JSON.stringify(item)
     }).then((response) => {
       console.log('Json',JSON.stringify(item));
       console.log('Response',response);
-      console.log('item',item);
       // navigate('/');
     }).catch(error => console.log(error))
-  }
-
+ }
 
   return(
     <>
