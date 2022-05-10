@@ -20,9 +20,7 @@ const AddItem = () => {
       },
       body: JSON.stringify(item)
     }).then((response) => {
-      console.log('Json',JSON.stringify(item));
-      console.log('Response',response);
-      // navigate('/');
+      navigate('/');
     }).catch(error => console.log(error))
  }
 

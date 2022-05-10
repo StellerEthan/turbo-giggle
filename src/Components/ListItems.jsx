@@ -1,7 +1,9 @@
 import React, {useState, useEffect} from "react";
+import { useNavigate } from "react-router-dom";
 
 const ListItems = () => {
   const [items, setItems] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(()=>{
     fetch(`http://localhost:8080/api/items`)
@@ -10,6 +12,10 @@ const ListItems = () => {
         setItems(response)})
       .catch(error => console.error(error))
   }, []);
+
+  const toEditPage = (id) => {
+    navigate("/edit/"+id);
+  }
 
   const displayItems = (items) => {
     return(
@@ -22,6 +28,7 @@ const ListItems = () => {
           <th>Item Description</th>
           <th>Item Location</th>
           <th>Item Expiration</th>
+          <th>Edit Button</th>
         </tr>
       </thead>
       <tbody>
@@ -33,6 +40,7 @@ const ListItems = () => {
                <td>{item.itemDesc}</td>
                <td>{item.itemLoc}</td>
                <td>{item.itemExp}</td>
+               <td><button onClick={() => toEditPage(item.id)}>Edit</button></td>
              </tr> 
           )
         }

@@ -5,6 +5,7 @@ import Home from "./View/Home.JSX";
 import ListItems from "./Components/ListItems";
 import AddItem from "./Components/AddItem.jsx";
 import Header from "./Components/Header";
+import EditItem from "./Components/EditItem";
 
 const App = () => {
   return(
@@ -13,6 +14,7 @@ const App = () => {
       <Routes>
         <Route path="/" element={<ListItems />}/>
         <Route path='/addItem' element={<AddItem />}/>
+        <Route path='/edit/:id' element={<EditItem />} />
       </Routes>
     </>
   );
