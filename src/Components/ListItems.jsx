@@ -23,7 +23,7 @@ const ListItems = () => {
     <h2>Item List</h2>
     <table>
       <thead>
-        <tr>
+        <tr className="row">
           <th>Item Name</th>
           <th>Item Description</th>
           <th>Item Location</th>
@@ -39,8 +39,8 @@ const ListItems = () => {
                <td>{item.itemName}</td>
                <td>{item.itemDesc}</td>
                <td>{item.itemLoc}</td>
-               <td>{item.itemExp}</td>
-               <td><button onClick={() => toEditPage(item.id)}>Edit</button></td>
+               <td>{item.itemExp.slice(0,10)}</td>
+               <td><button className="editButton" onClick={() => toEditPage(item.id)}>Edit</button></td>
              </tr> 
           )
         }

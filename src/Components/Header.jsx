@@ -10,8 +10,8 @@ const Header = () => {
 
   return(
     <nav>
-      <button onClick={() => {handleClick('/')}}>Home</button>
-      <button onClick={() => {handleClick('/addItem')}}>Add Item</button>
+      <button className="navButton" onClick={() => {handleClick('/')}}>Home</button>
+      <button className="navButton" onClick={() => {handleClick('/addItem')}}>Add Item</button>
       <hr />
     </nav>
   );

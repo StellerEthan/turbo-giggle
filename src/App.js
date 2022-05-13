@@ -1,7 +1,8 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
 
-import Home from "./View/Home.JSX";
+import './style.css';
+
 import ListItems from "./Components/ListItems";
 import AddItem from "./Components/AddItem.jsx";
 import Header from "./Components/Header";
