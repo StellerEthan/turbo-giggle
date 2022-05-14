@@ -21,7 +21,7 @@ const EditItem = () => {
         setItemExp(response.itemExp)
       })
       .catch(error => console.error(error))
-  }, []);
+  }, [id]);
   
   const updateItem = (e) => {
     e.preventDefault();
@@ -37,6 +37,17 @@ const EditItem = () => {
     }).catch(error => console.log(error))
  }
 
+ const deleteItem = (e) => {
+  e.preventDefault();
+  fetch(`http://localhost:8080/api/items/${id}`, {
+    method: 'DELETE',
+    headers: {
+    'Content-Type': 'application/json'
+    }
+  }).then((response) => {
+    navigate('/');
+  }).catch(error => console.log(error))
+}
 
   const displayEditForm = () => {
     return(
@@ -54,7 +65,8 @@ const EditItem = () => {
           <label>Item Expiration Date: </label>
           <input type='date' name="itemExp" value={itemExp.slice(0,10)} onChange={(e)=> setItemExp(e.target.value)}/>
         </form>
-        <button onClick={(e)=> updateItem(e)}>Save</button>
+        <button className="saveBTN" onClick={(e)=> updateItem(e)}>Save</button>
+        <button className="deleteBTN" onClick={(e)=> deleteItem(e)}>Delete</button>
       </>
     )
   }
