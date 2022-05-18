@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 
+import LocMenu from "./LocMenu";
+
 
 const EditItem = () => {
   const [ itemName, setItemName ] = useState('');
   const [ itemDesc, setItemDesc ] = useState('');
   const [ itemLoc, setItemLoc ] = useState('');
   const [ itemExp, setItemExp ] = useState('');
+  const [ locations, setLocations ] = useState('');
   const { id } = useParams();
 
   const navigate = useNavigate();
@@ -22,6 +25,14 @@ const EditItem = () => {
       })
       .catch(error => console.error(error))
   }, [id]);
+
+  useEffect(()=>{
+    fetch(`http://localhost:8080/api/location`)
+      .then(response => response.json())
+      .then(response => {;
+        setLocations(response)})
+      .catch(error => console.error(error))
+  }, []);
   
   const updateItem = (e) => {
     e.preventDefault();
@@ -49,6 +60,11 @@ const EditItem = () => {
   }).catch(error => console.log(error))
 }
 
+const handleLoc = (id) => {
+  let loc = locations.find((l) => l.id === parseInt(id))
+  setItemLoc(loc);
+}
+
   const displayEditForm = () => {
     return(
       <>
@@ -60,8 +76,10 @@ const EditItem = () => {
           <input type='text' name="itemDesc" value={itemDesc} onChange={(e)=> setItemDesc(e.target.value)}/>
           <br />
           <label>Item Location: </label>
-          <input type='text' name="itemLoc" value={itemLoc} onChange={(e)=> setItemLoc(e.target.value)}/>
-          <br />
+         <select onChange={(e)=> handleLoc(e.target.value)} required>
+          {locations && <LocMenu locations={locations}/>}
+         </select>
+         <br />
           <label>Item Expiration Date: </label>
           <input type='date' name="itemExp" value={itemExp.slice(0,10)} onChange={(e)=> setItemExp(e.target.value)}/>
         </form>

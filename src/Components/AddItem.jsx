@@ -11,10 +11,17 @@ const AddItem = () => {
 
   const navigate = useNavigate();
 
+  useEffect(()=>{
+    fetch(`http://localhost:8080/api/location`)
+      .then(response => response.json())
+      .then(response => {;
+        setLocations(response)})
+      .catch(error => console.error(error))
+  }, []);
+
   const saveItem = (e) => {
     e.preventDefault();
     const item = {itemName:itemName, itemDesc:itemDesc, itemLoc:itemLoc, itemExp:itemExp};
-    console.log(JSON.stringify(item));
     fetch(`http://localhost:8080/api/items`, {
       method: 'POST',
       headers: {
@@ -22,9 +29,14 @@ const AddItem = () => {
       },
       body: JSON.stringify(item)
     }).then((response) => {
-      // navigate('/');
+      navigate('/');
     }).catch(error => console.log(error))
  }
+
+  const handleLoc = (id) => {
+    let loc = locations.find((l) => l.id === parseInt(id))
+    setItemLoc(loc);
+  }
 
   return(
     <>
@@ -37,8 +49,8 @@ const AddItem = () => {
          <input type='text' name="itemDesc" value={itemDesc} placeholder='Enter Description' onChange={(e)=> setItemDesc(e.target.value)}/>
          <br/>
          <label>Item Location: </label>
-         <select  onChange={(e)=>setItemLoc(e.target.value)}>
-          <LocMenu/>
+         <select placeholder="Select Location"  onChange={(e)=> handleLoc(e.target.value)} required>
+          {locations && <LocMenu locations={locations}/>}
          </select>
          <br/>
          <label>Item Expiration Date: </label>
